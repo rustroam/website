@@ -1,19 +1,16 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import ActionButtons from "@/components/core/home/action-buttons";
+import Hero from "@/components/core/home/hero";
+import { ModeToggle } from "@/components/themes/toggle";
 
 export default function HomePage() {
   return (
-    <main className='flex min-h-screen flex-col items-center justify-center'>
+    <main className='relative flex min-h-screen flex-col items-center justify-center'>
+      <div className='absolute top-4 right-4 z-10'>
+        <ModeToggle />
+      </div>
       <div className='container flex flex-col items-center justify-center gap-12 px-4 py-16'>
-        <h1 className='font-extrabold text-5xl tracking-tight sm:text-[5rem]'>
-          Rustroam
-        </h1>
-
-        <Button asChild variant='shine' size='lg'>
-          <Link href='steam://run/252490//+connect 161.97.147.247:28015'>
-            Launch Rust
-          </Link>
-        </Button>
+        <Hero />
+        <ActionButtons />
       </div>
     </main>
   );
