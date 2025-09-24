@@ -1,5 +1,6 @@
 "use client";
 
+import { ModeToggle } from "@/components/themes/toggle";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -7,49 +8,19 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { NAVIGATION_LINKS, type NavbarNavLink } from "@/consts/links";
 import { cn } from "@/lib/utils";
+import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
-
-// Hamburger icon component
-const HamburgerIcon = ({
-  className,
-  ...props
-}: React.SVGAttributes<SVGElement>) => (
-  <svg
-    className={cn("pointer-events-none", className)}
-    width={16}
-    height={16}
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth='2'
-    strokeLinecap='round'
-    strokeLinejoin='round'
-    xmlns='http://www.w3.org/2000/svg'
-    {...props}
-  >
-    <title>Menu</title>
-    <path
-      d='M4 12L20 12'
-      className='-translate-y-[7px] origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]'
-    />
-    <path
-      d='M4 12H20'
-      className='origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45'
-    />
-    <path
-      d='M4 12H20'
-      className='origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]'
-    />
-  </svg>
-);
+import { useEffect, useMemo, useState } from "react";
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   logo?: React.ReactNode;
@@ -79,156 +50,170 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
     },
     ref,
   ) => {
-    const [isMobile, setIsMobile] = useState(false);
-    const containerRef = useRef<HTMLElement>(null);
+    const [open, setOpen] = useState(false);
+    const [isHydrated, setIsHydrated] = useState(false);
     const pathname = usePathname();
+
+    // Set hydrated state after component mounts to avoid hydration mismatch
+    useEffect(() => {
+      setIsHydrated(true);
+    }, []);
 
     // Merge provided navigation links with active state based on current pathname
     const navigationLinks = useMemo(() => {
       const linksToUse = providedNavigationLinks || NAVIGATION_LINKS;
       return linksToUse.map((link) => ({
         ...link,
-        active: pathname === link.href,
+        active: isHydrated ? pathname === link.href : false,
       }));
-    }, [providedNavigationLinks, pathname]);
-
-    useEffect(() => {
-      const checkWidth = () => {
-        if (containerRef.current) {
-          const width = containerRef.current.offsetWidth;
-          setIsMobile(width < 768); // 768px is md breakpoint
-        }
-      };
-
-      checkWidth();
-
-      const resizeObserver = new ResizeObserver(checkWidth);
-      if (containerRef.current) {
-        resizeObserver.observe(containerRef.current);
-      }
-
-      return () => {
-        resizeObserver.disconnect();
-      };
-    }, []);
-
-    // Combine refs
-    const combinedRef = React.useCallback(
-      (node: HTMLElement | null) => {
-        containerRef.current = node;
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (ref) {
-          ref.current = node;
-        }
-      },
-      [ref],
-    );
+    }, [providedNavigationLinks, pathname, isHydrated]);
 
     return (
       <header
-        ref={combinedRef}
+        ref={ref}
         className={cn(
-          "sticky top-0 z-50 w-full border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-6 [&_*]:no-underline",
+          "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
           className,
         )}
         {...props}
       >
-        <div className='container mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4'>
-          {/* Left side */}
+        <div className='container mx-auto flex h-16 max-w-screen-2xl items-center px-4 sm:px-6 lg:px-8'>
+          {/* Left side - Logo and Navigation */}
+          <div className='flex flex-1 items-center gap-8'>
+            {/* Logo */}
+            <a
+              href={logoHref}
+              className='flex items-center space-x-2 text-primary transition-colors hover:text-primary/90'
+            >
+              <span className='font-bold text-xl'>rustroam</span>
+            </a>
+
+            {/* Desktop Navigation */}
+            <NavigationMenu className='hidden md:flex'>
+              <NavigationMenuList className='gap-1'>
+                {navigationLinks.map((link) => (
+                  <NavigationMenuItem key={link.href}>
+                    <a
+                      href={link.href}
+                      className={cn(
+                        "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 font-medium text-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50",
+                        link.active
+                          ? "bg-accent text-accent-foreground"
+                          : "text-foreground/80",
+                      )}
+                    >
+                      {link.label}
+                    </a>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+
+          {/* Right side - Actions */}
           <div className='flex items-center gap-2'>
-            {/* Mobile menu trigger */}
-            {isMobile && (
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    className='group h-9 w-9 hover:bg-accent hover:text-accent-foreground'
-                    variant='ghost'
-                    size='icon'
-                  >
-                    <HamburgerIcon />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent align='start' className='w-48 p-2'>
-                  <NavigationMenu className='max-w-none'>
-                    <NavigationMenuList className='flex-col items-start gap-1'>
-                      {navigationLinks.map((link, index) => (
-                        <NavigationMenuItem key={link.href} className='w-full'>
-                          <a
-                            href={link.href}
-                            className={cn(
-                              "flex w-full cursor-pointer items-center rounded-md px-3 py-2 font-medium text-sm no-underline transition-colors hover:bg-accent hover:text-accent-foreground",
-                              link.active
-                                ? "bg-accent text-accent-foreground"
-                                : "text-foreground/80",
-                            )}
-                          >
-                            {link.label}
-                          </a>
-                        </NavigationMenuItem>
-                      ))}
-                    </NavigationMenuList>
-                  </NavigationMenu>
-                </PopoverContent>
-              </Popover>
-            )}
-            {/* Main nav */}
-            <div className='flex items-center gap-6'>
-              <a
-                href='/'
-                className='flex cursor-pointer items-center space-x-2 text-primary transition-colors hover:text-primary/90'
+            <ModeToggle />
+
+            {/* Desktop Actions */}
+            <div className='hidden md:flex md:items-center md:gap-2'>
+              <Button
+                variant='ghost'
+                size='sm'
+                className='h-9 px-4 font-medium'
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onSignInClick) onSignInClick();
+                }}
               >
-                <span className='hidden font-bold text-xl sm:inline-block'>
-                  rustroam
-                </span>
-              </a>
-              {/* Navigation menu */}
-              {!isMobile && (
-                <NavigationMenu className='flex'>
-                  <NavigationMenuList className='gap-1'>
-                    {navigationLinks.map((link, index) => (
-                      <NavigationMenuItem key={link.href}>
+                {signInText}
+              </Button>
+              <Button
+                size='sm'
+                className='h-9 px-4 font-medium'
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onCtaClick) onCtaClick();
+                }}
+              >
+                {ctaText}
+              </Button>
+            </div>
+
+            {/* Mobile Menu */}
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant='ghost'
+                  size='icon'
+                  className='h-9 w-9 md:hidden'
+                  aria-label='Toggle menu'
+                >
+                  <Menu className='h-5 w-5' />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side='right' className='w-full p-0 sm:w-80'>
+                <div className='flex h-full flex-col'>
+                  {/* Header */}
+                  <SheetHeader className='flex h-16 items-center justify-between border-b px-6'>
+                    <SheetTitle className='font-semibold text-lg'>
+                      Menu
+                    </SheetTitle>
+                    <SheetDescription className='sr-only'>
+                      Mobile navigation menu with links and actions
+                    </SheetDescription>
+                  </SheetHeader>
+
+                  {/* Navigation Links */}
+                  <div className='flex-1 overflow-y-auto px-6 py-6'>
+                    <nav className='space-y-2'>
+                      {navigationLinks.map((link) => (
                         <a
+                          key={link.href}
                           href={link.href}
+                          onClick={() => setOpen(false)}
                           className={cn(
-                            "group inline-flex h-9 w-max cursor-pointer items-center justify-center rounded-md px-4 py-2 font-medium text-sm no-underline transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none",
+                            "flex items-center rounded-lg px-4 py-3 font-medium text-sm transition-all duration-200 hover:translate-x-1 hover:bg-accent hover:text-accent-foreground",
                             link.active
-                              ? "bg-accent text-accent-foreground"
-                              : "text-foreground/80 hover:text-foreground",
+                              ? "bg-accent text-accent-foreground shadow-sm"
+                              : "text-foreground/80",
                           )}
                         >
                           {link.label}
                         </a>
-                      </NavigationMenuItem>
-                    ))}
-                  </NavigationMenuList>
-                </NavigationMenu>
-              )}
-            </div>
-          </div>
-          {/* Right side */}
-          <div className='flex items-center gap-3'>
-            <Button
-              variant='ghost'
-              size='sm'
-              className='font-medium text-sm hover:bg-accent hover:text-accent-foreground'
-              onClick={(e) => {
-                e.preventDefault();
-                if (onSignInClick) onSignInClick();
-              }}
-            >
-              {signInText}
-            </Button>
-            <Button
-              size='sm'
-              className='h-9 rounded-md px-4 font-medium text-sm shadow-sm'
-              onClick={(e) => {
-                e.preventDefault();
-                if (onCtaClick) onCtaClick();
-              }}
-            >
-              {ctaText}
-            </Button>
+                      ))}
+                    </nav>
+
+                    {/* Actions Section */}
+                    <div className='mt-8 space-y-3'>
+                      <div className='h-px bg-border' />
+                      <div className='space-y-2'>
+                        <Button
+                          variant='ghost'
+                          className='h-11 w-full justify-start font-medium text-sm'
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpen(false);
+                            if (onSignInClick) onSignInClick();
+                          }}
+                        >
+                          {signInText}
+                        </Button>
+                        <Button
+                          className='h-11 w-full font-medium text-sm shadow-sm'
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setOpen(false);
+                            if (onCtaClick) onCtaClick();
+                          }}
+                        >
+                          {ctaText}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>
@@ -237,5 +222,3 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
 );
 
 Navbar.displayName = "Navbar";
-
-export { HamburgerIcon };
