@@ -114,31 +114,6 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
           <div className='flex items-center gap-2'>
             <ModeToggle />
 
-            {/* Desktop Actions */}
-            <div className='hidden md:flex md:items-center md:gap-2'>
-              <Button
-                variant='ghost'
-                size='sm'
-                className='h-9 px-4 font-medium'
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (onSignInClick) onSignInClick();
-                }}
-              >
-                {signInText}
-              </Button>
-              <Button
-                size='sm'
-                className='h-9 px-4 font-medium'
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (onCtaClick) onCtaClick();
-                }}
-              >
-                {ctaText}
-              </Button>
-            </div>
-
             {/* Mobile Menu */}
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
@@ -182,34 +157,6 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                         </a>
                       ))}
                     </nav>
-
-                    {/* Actions Section */}
-                    <div className='mt-8 space-y-3'>
-                      <div className='h-px bg-border' />
-                      <div className='space-y-2'>
-                        <Button
-                          variant='ghost'
-                          className='h-11 w-full justify-start font-medium text-sm'
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setOpen(false);
-                            if (onSignInClick) onSignInClick();
-                          }}
-                        >
-                          {signInText}
-                        </Button>
-                        <Button
-                          className='h-11 w-full font-medium text-sm shadow-sm'
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setOpen(false);
-                            if (onCtaClick) onCtaClick();
-                          }}
-                        >
-                          {ctaText}
-                        </Button>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </SheetContent>
