@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
 
-export default function ActionButtons() {
+export function ActionButtons() {
   const handleSteamConnect = () => {
     toast.success("connecting to server...");
   };

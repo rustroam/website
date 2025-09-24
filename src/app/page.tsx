@@ -1,5 +1,6 @@
-import ActionButtons from "@/components/core/home/action-buttons";
-import Hero from "@/components/core/home/hero";
+import { ActionButtons } from "@/components/core/home/action-buttons";
+import { Hero } from "@/components/core/home/hero";
+import { ServerStatus } from "@/components/core/home/server-status";
 import { ModeToggle } from "@/components/themes/toggle";
 
 export default function HomePage() {
@@ -11,6 +12,7 @@ export default function HomePage() {
       <div className='container flex flex-col items-center justify-center gap-12 px-4 py-16'>
         <Hero />
         <ActionButtons />
+        <ServerStatus />
       </div>
     </main>
   );
