@@ -9,8 +9,12 @@ export default function HomePage() {
   return (
     <main className='relative flex min-h-screen flex-col items-center justify-center overflow-hidden'>
       <DotPattern
-        glow={true}
-        className='[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
+        width={20}
+        height={20}
+        cx={1}
+        cy={1}
+        cr={1}
+        className='[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]'
       />
       <div className='absolute top-4 right-4 z-10'>
         <ModeToggle />
