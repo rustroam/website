@@ -1,3 +1,5 @@
+"use server";
+
 import { GameDig } from "gamedig";
 
 export async function getServerState(host: string, port: number) {

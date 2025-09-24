@@ -1,6 +1,8 @@
+import { SERVER_DETAILS, STEAM_APP_ID } from "@/consts/rust";
+
 export const LINKS = {
   DISCORD: "https://discord.gg/NReK7Q2NHu",
-  STEAM_CONNECT: "steam://run/252490//+connect 161.97.147.247:28015",
+  STEAM_CONNECT: `steam://run/${STEAM_APP_ID}//+connect ${SERVER_DETAILS.host}:${SERVER_DETAILS.port}`,
 } as const;
 
 export interface NavbarNavLink {
