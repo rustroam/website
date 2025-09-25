@@ -1,6 +1,8 @@
 import "@/styles/globals.css";
 
+import { AnalyticsScript } from "@/components/core/analytics/page";
 import { ThemeProvider } from "@/components/themes/provider";
+import { env } from "@/env";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Toaster } from "sonner";
@@ -21,6 +23,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang='en' className={`${geist.variable}`} suppressHydrationWarning>
+      {env.NODE_ENV !== "development" && <AnalyticsScript />}
       <body>
         <ThemeProvider
           attribute='class'
