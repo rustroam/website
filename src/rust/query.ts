@@ -2,7 +2,7 @@ import { GameDig, type QueryResult } from "gamedig";
 
 export async function getServerState(
   host: string,
-  port: number
+  port: number,
 ): Promise<QueryResult | Error> {
   try {
     const state = await GameDig.query({
