@@ -91,21 +91,32 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
             {/* Desktop Navigation */}
             <NavigationMenu className='hidden md:flex'>
               <NavigationMenuList className='gap-1'>
-                {navigationLinks.map((link) => (
-                  <NavigationMenuItem key={link.href}>
-                    <a
-                      href={link.href}
-                      className={cn(
-                        "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 font-medium text-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50",
-                        link.active
-                          ? "bg-accent text-accent-foreground"
-                          : "text-foreground/80",
-                      )}
-                    >
-                      {link.label}
-                    </a>
-                  </NavigationMenuItem>
-                ))}
+                {navigationLinks.map((link) => {
+                  const Icon = link.icon;
+                  const iconPosition = link.iconPosition || "left";
+
+                  return (
+                    <NavigationMenuItem key={link.href}>
+                      <a
+                        href={link.href}
+                        className={cn(
+                          "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 font-medium text-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50",
+                          link.active
+                            ? "bg-accent text-accent-foreground"
+                            : "text-foreground/80",
+                        )}
+                      >
+                        {Icon && iconPosition === "left" && (
+                          <Icon className='mr-2 h-4 w-4' />
+                        )}
+                        {link.label}
+                        {Icon && iconPosition === "right" && (
+                          <Icon className='ml-2 h-4 w-4' />
+                        )}
+                      </a>
+                    </NavigationMenuItem>
+                  );
+                })}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
@@ -141,21 +152,32 @@ export const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
                   {/* Navigation Links */}
                   <div className='flex-1 overflow-y-auto px-6 py-6'>
                     <nav className='space-y-2'>
-                      {navigationLinks.map((link) => (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          onClick={() => setOpen(false)}
-                          className={cn(
-                            "flex items-center rounded-lg px-4 py-3 font-medium text-sm transition-all duration-200 hover:translate-x-1 hover:bg-accent hover:text-accent-foreground",
-                            link.active
-                              ? "bg-accent text-accent-foreground shadow-sm"
-                              : "text-foreground/80",
-                          )}
-                        >
-                          {link.label}
-                        </a>
-                      ))}
+                      {navigationLinks.map((link) => {
+                        const Icon = link.icon;
+                        const iconPosition = link.iconPosition || "left";
+
+                        return (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            onClick={() => setOpen(false)}
+                            className={cn(
+                              "flex items-center rounded-lg px-4 py-3 font-medium text-sm transition-all duration-200 hover:translate-x-1 hover:bg-accent hover:text-accent-foreground",
+                              link.active
+                                ? "bg-accent text-accent-foreground shadow-sm"
+                                : "text-foreground/80",
+                            )}
+                          >
+                            {Icon && iconPosition === "left" && (
+                              <Icon className='mr-2 h-4 w-4' />
+                            )}
+                            {link.label}
+                            {Icon && iconPosition === "right" && (
+                              <Icon className='ml-2 h-4 w-4' />
+                            )}
+                          </a>
+                        );
+                      })}
                     </nav>
                   </div>
                 </div>
