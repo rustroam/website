@@ -15,10 +15,22 @@ export function ActionButtons() {
   };
 
   return (
-    <div className='flex flex-col'>
+    <div className='grid w-full max-w-md grid-cols-2 gap-4'>
       <Button asChild variant='linkHover2' size='lg'>
         <Link href={LINKS.STEAM_CONNECT} onClick={handleSteamConnect}>
           connect to server
+        </Link>
+      </Button>
+
+      <Button asChild variant='linkHover2' size='lg'>
+        <Link href='/rules' onClick={handleDiscordJoin}>
+          read the rules
+        </Link>
+      </Button>
+
+      <Button asChild variant='linkHover2' size='lg'>
+        <Link href='/link' onClick={handleDiscordJoin}>
+          link accounts
         </Link>
       </Button>
 
