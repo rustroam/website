@@ -9,11 +9,7 @@ export function ServerStatus() {
         variant='link'
         className='h-auto p-0 text-muted-foreground text-sm'
       >
-        <Link href='/status'>
-          server status
-          <br />
-          (coming soon)
-        </Link>
+        <Link href='/status'>server status (coming soon)</Link>
       </Button>
     </div>
   );
