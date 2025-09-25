@@ -4,7 +4,7 @@
     "": {
       "name": "rustroam",
       "dependencies": {
-        "@prisma/client": "^6.5.0",
+        "@prisma/client": "^6.16.2",
         "@radix-ui/react-dialog": "^1.1.15",
         "@radix-ui/react-label": "^2.1.7",
         "@radix-ui/react-navigation-menu": "^1.2.14",
@@ -18,29 +18,29 @@
         "clsx": "^2.1.1",
         "gamedig": "^5.3.2",
         "lucide-react": "^0.544.0",
-        "motion": "^12.23.21",
-        "next": "^15.2.3",
+        "motion": "^12.23.22",
+        "next": "^15.5.4",
         "next-themes": "^0.4.6",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
+        "react": "^19.1.1",
+        "react-dom": "^19.1.1",
         "sonner": "^2.0.7",
         "tailwind-merge": "^3.3.1",
         "zod": "^4.1.11",
       },
       "devDependencies": {
         "@biomejs/biome": "1.9.4",
-        "@tailwindcss/postcss": "^4.0.15",
+        "@tailwindcss/postcss": "^4.1.13",
         "@types/bun": "latest",
         "@types/gamedig": "^5.0.3",
-        "@types/node": "^20.14.10",
-        "@types/react": "^19.0.0",
-        "@types/react-dom": "^19.0.0",
+        "@types/node": "^20.19.17",
+        "@types/react": "^19.1.13",
+        "@types/react-dom": "^19.1.9",
         "bumpp": "^10.2.3",
-        "postcss": "^8.5.3",
-        "prisma": "^6.5.0",
-        "tailwindcss": "^4.0.15",
+        "postcss": "^8.5.6",
+        "prisma": "^6.16.2",
+        "tailwindcss": "^4.1.13",
         "tw-animate-css": "^1.4.0",
-        "typescript": "^5.8.2",
+        "typescript": "^5.9.2",
       },
     },
   },
@@ -365,7 +365,7 @@
 
     "form-data-encoder": ["form-data-encoder@2.1.4", "", {}, "sha512-yDYSgNMraqvnxiEXO4hi88+YZxaHC6QKzb5N84iRCTDeRO7ZALpir/lVmf/uXUhnwUr2O4HU8s/n6x+yNjQkHw=="],
 
-    "framer-motion": ["framer-motion@12.23.21", "", { "dependencies": { "motion-dom": "^12.23.21", "motion-utils": "^12.23.6", "tslib": "^2.4.0" }, "peerDependencies": { "@emotion/is-prop-valid": "*", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/is-prop-valid", "react", "react-dom"] }, "sha512-UWDtzzPdRA3UpSNGril5HjUtPF1Uo/BCt5VKG/YQ8tVpSkAZ22+q8o+hYO0C1uDAZuotQjcfzsTsDtQxD46E/Q=="],
+    "framer-motion": ["framer-motion@12.23.22", "", { "dependencies": { "motion-dom": "^12.23.21", "motion-utils": "^12.23.6", "tslib": "^2.4.0" }, "peerDependencies": { "@emotion/is-prop-valid": "*", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/is-prop-valid", "react", "react-dom"] }, "sha512-ZgGvdxXCw55ZYvhoZChTlG6pUuehecgvEAJz0BHoC5pQKW1EC5xf1Mul1ej5+ai+pVY0pylyFfdl45qnM1/GsA=="],
 
     "gamedig": ["gamedig@5.3.2", "", { "dependencies": { "fast-xml-parser": "5.2.5", "gbxremote": "0.2.1", "got": "13.0.0", "iconv-lite": "0.7.0", "long": "5.3.2", "minimist": "1.2.8", "seek-bzip": "2.0.0", "telnet-client": "2.2.6", "varint": "6.0.0" }, "bin": { "gamedig": "bin/gamedig.js" } }, "sha512-R2b1LwjW783PZsHRl9M8R06UkvJwXmJ6PDKk48UukJQ9ktiwrCeAk90MAZx6nF3oA444uf7r5eHjfaYbNoSV+Q=="],
 
@@ -437,7 +437,7 @@
 
     "minizlib": ["minizlib@3.1.0", "", { "dependencies": { "minipass": "^7.1.2" } }, "sha512-KZxYo1BUkWD2TVFLr0MQoM8vUUigWD3LlD83a/75BqC+4qE0Hb1Vo5v1FgcfaNXvfXzr+5EhQ6ing/CaBijTlw=="],
 
-    "motion": ["motion@12.23.21", "", { "dependencies": { "framer-motion": "^12.23.21", "tslib": "^2.4.0" }, "peerDependencies": { "@emotion/is-prop-valid": "*", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/is-prop-valid", "react", "react-dom"] }, "sha512-FzgbQNeZXHWXXEKmpfenYvF5wdc5i7lT/Kwr3xV4dmGVsU7Y30QcgCZsWHAlE/4McAWhNGbOAhgdiabXZ1EjnA=="],
+    "motion": ["motion@12.23.22", "", { "dependencies": { "framer-motion": "^12.23.22", "tslib": "^2.4.0" }, "peerDependencies": { "@emotion/is-prop-valid": "*", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" }, "optionalPeers": ["@emotion/is-prop-valid", "react", "react-dom"] }, "sha512-iSq6X9vLHbeYwmHvhK//+U74ROaPnZmBuy60XZzqNl0QtZkWfoZyMDHYnpKuWFv0sNMqHgED8aCXk94LCoQPGg=="],
 
     "motion-dom": ["motion-dom@12.23.21", "", { "dependencies": { "motion-utils": "^12.23.6" } }, "sha512-5xDXx/AbhrfgsQmSE7YESMn4Dpo6x5/DTZ4Iyy4xqDvVHWvFVoV+V2Ri2S/ksx+D40wrZ7gPYiMWshkdoqNgNQ=="],
 
