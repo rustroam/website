@@ -5,10 +5,10 @@ export function ServerStatus() {
   return (
     <Button
       asChild
-      variant="linkHover2"
-      className="text-muted-foreground text-sm"
+      variant='linkHover2'
+      className='text-muted-foreground text-sm'
     >
-      <Link href="/status">server status (coming soon)</Link>
+      <Link href='/status'>server status (coming soon)</Link>
     </Button>
   );
 }
