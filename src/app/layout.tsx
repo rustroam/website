@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 
-import { AnalyticsScript } from "@/components/core/analytics/page";
+import { AnalyticsScript } from "@/components/core/analytics/umami";
 import { ThemeProvider } from "@/components/themes/provider";
 import { env } from "@/env";
 import type { Metadata } from "next";
