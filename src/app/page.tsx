@@ -1,5 +1,4 @@
 import { ActionButtons } from "@/components/core/home/action-buttons";
-import { BetaAlert } from "@/components/core/home/beta-alert";
 import { Hero } from "@/components/core/home/hero";
 import { ServerStatus } from "@/components/core/home/server-status";
 import { ModeToggle } from "@/components/themes/toggle";
@@ -20,7 +19,6 @@ export default function HomePage() {
         <ModeToggle />
       </div>
       <div className='container relative z-10 flex flex-col items-center justify-center gap-8 px-4 py-16'>
-        <BetaAlert />
         <Hero />
         <ActionButtons />
         <ServerStatus />
